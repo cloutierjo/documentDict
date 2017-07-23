@@ -38,10 +38,9 @@ public class Dictionary {
 	 * 
 	 * @param path to output the file
 	 * 
-	 * @throws ParserConfigurationException
 	 * @throws TransformerException
 	 */
-	public void saveClientXml(String path) throws ParserConfigurationException, TransformerException {
+	public void saveClientXml(String path) throws TransformerException {
 		saveXml(false, path);
 	}
 
@@ -51,14 +50,13 @@ public class Dictionary {
 	 * 
 	 * @param path to output the file
 	 * 
-	 * @throws ParserConfigurationException
 	 * @throws TransformerException
 	 */
-	public void saveServerXml(String path) throws ParserConfigurationException, TransformerException {
+	public void saveServerXml(String path) throws TransformerException {
 		saveXml(true, path);
 	}
 
-	private void saveXml(boolean doServerXml, String path) throws ParserConfigurationException, TransformerException{
+	private void saveXml(boolean doServerXml, String path) throws TransformerException{
 		Document xml = getFullXml(doServerXml);
 		// pretty print, not required, but help if debugging is required
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -71,8 +69,14 @@ public class Dictionary {
 		transformer.transform(dom, result);
 	}
 
-	protected Document getFullXml(boolean doServerXml) throws ParserConfigurationException, TransformerException {
-		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+	protected Document getFullXml(boolean doServerXml) {
+		DocumentBuilder documentBuilder;
+		try {
+			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// we use the default config, their shouldn't have error, so throwing it as runtimeException
+			throw new RuntimeException(e);
+		}
 		Document xml = documentBuilder.newDocument();
 
 		Element dict = xml.createElement(TAG_DICTIONARY);
