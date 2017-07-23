@@ -22,6 +22,7 @@ public class FileDocument {
 	private String name;
 	private String version;
 	private String data;
+	private String path;
 
 	/**
 	 * @param file representing a document
@@ -37,13 +38,20 @@ public class FileDocument {
 			name = xml.getElementsByTagName(TAG_DOCUMENT_NAME).item(0).getTextContent();
 			version = xml.getElementsByTagName(TAG_VERSION).item(0).getTextContent();
 			data = xml.getElementsByTagName(TAG_DATA).item(0).getTextContent();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			path = file.getAbsolutePath();
+		} catch (ParserConfigurationException | SAXException e) {
+			System.err.println("The file " + file.getAbsolutePath() + " has a format error : " + e.getMessage());
 		}
+	}
+
+	/**
+	 * Full constructor for unit test
+	 */
+	protected FileDocument(String name, String version, String data, String path) {
+		this.name = name;
+		this.version = version;
+		this.data = data;
+		this.path = path;
 	}
 
 	public String getName() {
@@ -56,5 +64,9 @@ public class FileDocument {
 
 	public String getData() {
 		return data;
+	}
+	
+	public String getPath() {
+		return path;
 	}
 }

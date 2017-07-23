@@ -1,13 +1,14 @@
 package net.jc.documentdict;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 import org.junit.Test;
 
 /**
- * File documents tests
+ * File document tests
  */
 public class FileDocumentTest 
 {
@@ -18,6 +19,8 @@ public class FileDocumentTest
 		assertEquals("1.0",fileDocument.getVersion());
 		String expectedData = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 		assertEquals(expectedData, fileDocument.getData());
+		assertTrue(fileDocument.getPath().endsWith("src/test/resources/testFiles/f001.xml"));
+		
 	}
 	
 	@Test

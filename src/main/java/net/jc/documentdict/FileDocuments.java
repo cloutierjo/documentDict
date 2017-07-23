@@ -43,8 +43,7 @@ public class FileDocuments implements Iterable<FileDocument> {
 					++position;
 					return document;
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println("Couldn't read " + files[position].getAbsolutePath() + " : " + e.getMessage());
 				}
 			}
 			return null;
